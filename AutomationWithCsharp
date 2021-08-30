@@ -1,0 +1,66 @@
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System;
+using System.Management;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SeleniumTest
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //Open a new page
+            IWebDriver driver = new ChromeDriver();
+
+            //Maximizing the window
+            driver.Manage().Window.Maximize();
+
+            //Navigate to url
+            driver.Navigate().GoToUrl("https://practice.automationbyte.com/forms/basic-form-1/");
+
+            //Finding the element of the first name
+            IWebElement FirstName = driver.FindElement(By.Id("urFirstname"));
+
+            //Typing first name - abd
+            FirstName.SendKeys("abd");
+
+            //Finding the element of the last name
+            IWebElement LastName = driver.FindElement(By.Name("lastNameInput"));
+
+            //Typing last name - asda
+            LastName.SendKeys("asda");
+
+            //Finding the element of the radio button Gender female
+            IWebElement Gender = driver.FindElement(By.XPath("//*[@id='user-registration-form']/div[1]/div[3]/div[2]/label/input"));
+
+            //Clicking on the radio button the element of the Gender female
+            Gender.Click();
+
+            //Finding the Register button
+            IWebElement submit = driver.FindElement(By.Name("submit-user-registration-form"));
+
+            //Clicking the Register button
+            submit.Click();
+
+            //Check if the message was submitted by finding the element of the result panel
+            Boolean SubmittedDataMEssage = driver.FindElement(By.XPath("//*[@id='result-panel']")).Displayed;
+
+            //Print if element is displayed
+            Console.WriteLine("Test passed"+ SubmittedDataMEssage);
+                if (SubmittedDataMEssage)
+            {
+                Console.WriteLine("Submit succeeded");
+
+
+            }
+                else
+            {
+                Console.WriteLine("Submit failed");
+            }
+        }
+    }
+}
